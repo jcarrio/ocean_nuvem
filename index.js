@@ -136,6 +136,7 @@ const app = express();
             return;
         }
 
+        // alteração
         await collection.deleteOne({ _id: new ObjectId(id) });
 
         res.send("Personagem removida com sucesso!");
