@@ -4,7 +4,7 @@ const app = express();
 
 (async () => {
     const url = "mongodb://localhost:27017";
-    const dbName = "ocean_bancodados_22_09_2021";
+    const dbName = "ocean_backend";
 
     const client = await MongoClient.connect(url);
 
@@ -65,7 +65,7 @@ const app = express();
 
     // [POST] /personagens
     // Create
-    app.post("/personagens", function (req, res) {
+    app.post("/personagens", async function (req, res) {
         // Obtém o corpo da requisição e coloca na variável item
         const item = req.body;
 
@@ -77,14 +77,17 @@ const app = express();
             return;
         }
 
-        item.id = lista.push(item);
+        const itemAdicionado = await collection.insertOne(item);
+        // ou simplesmente
+        // await collection.insertOne(item);
+        // res.status(201).send(item);
 
-        res.status(201).send(item);
+        res.status(201).send(itemAdicionado);
     });
 
     // [PUT] /personagens/:id
     // Update
-    app.put("/personagens/:id", function (req, res) {
+    app.put("/personagens/:id", async function (req, res) {
         /*
     Objetivo: Atualizar uma personagem
     Passos:
@@ -94,9 +97,9 @@ const app = express();
     - Exibir que deu certo
     */
 
-        const id = +req.params.id;
+        const id = req.params.id;
 
-        const itemEncontrado = findById(id);
+        const itemEncontrado = await findById(id);
 
         if (!itemEncontrado) {
             res.status(404).send("Personagem não encontrado.");
@@ -114,21 +117,18 @@ const app = express();
             return;
         }
 
-        const index = lista.indexOf(itemEncontrado);
-
-        novoItem.id = id;
-
-        lista[index] = novoItem;
+        await collection.updateOne({ _id: new ObjectId(id) }, { $set: novoItem })
 
         res.send("Personagem atualizada com sucesso!");
+        // res.send(novoItem); // retorna item alterado
     });
 
     // [DELETE] /personagens/:id
     // Delete
-    app.delete("/personagens/:id", function (req, res) {
-        const id = +req.params.id;
+    app.delete("/personagens/:id", async function (req, res) {
+        const id = req.params.id;
 
-        const itemEncontrado = findById(id);
+        const itemEncontrado = await findById(id);
 
         if (!itemEncontrado) {
             res.status(404).send("Personagem não encontrado.");
@@ -136,9 +136,7 @@ const app = express();
             return;
         }
 
-        const index = lista.indexOf(itemEncontrado);
-
-        lista.splice(index, 1);
+        await collection.deleteOne({ _id: new ObjectId(id) });
 
         res.send("Personagem removida com sucesso!");
     });
