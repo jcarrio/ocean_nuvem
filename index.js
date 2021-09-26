@@ -1,11 +1,16 @@
+require("dotenv").config();
 const { MongoClient, ObjectId } = require("mongodb");
 const express = require("express");
 const app = express();
 
+const dbUser = process.env.DB_USER;
+const dbPass = process.env.DB_PASS;
+const dbHost = process.env.DB_HOST;
+
 (async () => {
     // const url = "mongodb://localhost:27017";
-    const url = "mongodb+srv://admin:rQ62j&nrh@cluster0.msgsj.mongodb.net/";
-   const dbName = "ocean_backend";
+    const url = `mongodb+srv://${dbUser}:${dbPass}@${dbHost}/`;
+    const dbName = process.env.DB_NAME;
 
     const client = await MongoClient.connect(url);
 
