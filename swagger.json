@@ -83,7 +83,7 @@
                         "required": true,
                         "schema": {
                           "type": "string",
-                          "format": "uuid"
+                          "format": "ObjectId"
                         }
                     }
                 ],
@@ -119,7 +119,7 @@
                         "required": true,
                         "schema": {
                           "type": "string",
-                          "format": "uuid"
+                          "format": "ObjectId"
                         }
                     }
                 ],
@@ -176,7 +176,7 @@
                         "required": true,
                         "schema": {
                           "type": "string",
-                          "format": "uuid"
+                          "format": "ObjectId"
                         }
                     }
                 ],
@@ -201,7 +201,7 @@
                 "properties": {
                     "_id": {
                         "type": "string",
-                        "format": "uuid"
+                        "format": "ObjectId"
                     },
                     "nome": {
                         "type": "string"
