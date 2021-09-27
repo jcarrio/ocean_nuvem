@@ -1,0 +1,210 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Rick and Morty",
+        "description": "Documentaçãod da API Rick and Morty",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/personagens": {
+            "get": {
+                "summary": "Read All",
+                "description": "Carrega todos os personagens",
+                "tags": ["Personagens"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Personagem"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create",
+                "description": "Cria personagem",
+                "tags": ["Personagens"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Cadastro"
+                            },
+                            "examples": {
+                                "Cadastro": {
+                                    "value": {
+                                        "nome": "Jerry Smith",
+                                        "imagemUrl": "https://rickandmortyapi.com/api/character/avatar/5.jpeg"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Chave 'nome' não foi encontrada no corpo da requisição."
+                    },
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Personagem"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },            
+        "/personagens/{id}": {
+            "get": {
+                "summary": "Read Single",
+                "description": "Carrega personagem por id",
+                "tags": ["Personagens"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do personagem",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Id inválido."
+                    },
+                    "404": {
+                        "description": "Personagem não encontrado."
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Personagem"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update",
+                "description": "Atualiza um personagem",
+                "tags": ["Personagens"],
+                "parameters":  [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do personagem",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/Cadastro"
+                            },
+                            "examples": {
+                                "Cadastro": {
+                                    "value": {
+                                        "nome": "Beth Smith",
+                                        "imagemUrl": "https://rickandmortyapi.com/api/character/avatar/4.jpeg"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Id inválido."
+                    },
+                    "404": {
+                        "description": "Personagem não encontrado."
+                    },
+                    "400": {
+                        "description": "Chave 'nome' não foi encontrada no corpo da requisição."
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Personagem"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete",
+                "description": "Apaga um personagem",
+                "tags": ["Personagens"],
+                "parameters":  [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do personagem",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Id inválido."
+                    },
+                    "404": {
+                        "description": "Personagem não encontrado."
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Personagem": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "imagemUrl": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Cadastro": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "imagemUrl": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

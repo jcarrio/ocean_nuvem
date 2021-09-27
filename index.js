@@ -1,7 +1,11 @@
 require("dotenv").config();
+
 const { MongoClient, ObjectId } = require("mongodb");
 const express = require("express");
 const app = express();
+
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const dbUser = process.env.DB_USER;
 const dbPass = process.env.DB_PASS;
@@ -21,26 +25,14 @@ const dbHost = process.env.DB_HOST;
     // Sinalizamos para o Express que todo body da requisição
     // estará estruturado em JSON
     app.use(express.json());
+    app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
     app.get("/", function (req, res) {
-        res.send("Hello World");
+        //res.send("Hello World");
+        res.redirect('api-docs');
     });
 
     // CRUD -> Create, Read (All & Single/byId), Update, Delete
-
-    // "CRUD em memória"
-
-    // Lista de textos (strings)
-    const lista = [
-        {
-            id: 1,
-            nome: "Rick Sanchez",
-        },
-        {
-            id: 2,
-            nome: "Morty Smith",
-        },
-    ];
 
     // [GET] /personagens
     // Read All
@@ -50,13 +42,19 @@ const dbHost = process.env.DB_HOST;
     });
 
     function findById(id) {
-        return collection.findOne({ _id: new ObjectId(id) });
+        return collection.findOne({ _id: ObjectId(id) });
     }
 
     // [GET] /personagens/:id
     // Read By Id
     app.get("/personagens/:id", async function (req, res) {
         const id = req.params.id;
+
+        if (!ObjectId.isValid(id)) {
+            res.status(401).send("Id inválido.");
+
+            return;
+        }
 
         const item = await findById(id);
 
@@ -75,6 +73,7 @@ const dbHost = process.env.DB_HOST;
         // Obtém o corpo da requisição e coloca na variável item
         const item = req.body;
 
+        //console.log(item);
         if (!item || !item.nome) {
             res.status(400).send(
                 "Chave 'nome' não foi encontrada no corpo da requisição."
@@ -101,6 +100,12 @@ const dbHost = process.env.DB_HOST;
         */
 
         const id = req.params.id;
+
+        if (!ObjectId.isValid(id)) {
+            res.status(401).send("Id inválido.");
+
+            return;
+        }
 
         const itemEncontrado = await findById(id);
 
@@ -133,6 +138,12 @@ const dbHost = process.env.DB_HOST;
     app.delete("/personagens/:id", async function (req, res) {
         const id = req.params.id;
 
+        if (!ObjectId.isValid(id)) {
+            res.status(401).send("Id inválido.");
+
+            return;
+        }
+
         const itemEncontrado = await findById(id);
 
         if (!itemEncontrado) {
@@ -143,7 +154,7 @@ const dbHost = process.env.DB_HOST;
 
         await collection.deleteOne({ _id: new ObjectId(id) });
 
-        res.send("Personagem removida com sucesso!");
+        res.send("Personagem removido com sucesso!");
     });
 
     //app.listen(3000);
