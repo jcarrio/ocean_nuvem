@@ -2,8 +2,11 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Rick and Morty",
-        "description": "Documentaçãod da API Rick and Morty",
-        "version": "1.0.0"
+        "description": "Documentação da API Rick and Morty.\nDesenvolvido com Node.js Express e MongoDB",
+        "version": "1.0.0",
+        "contact": {
+            "name": "Julio Carrió"
+        }
     },
     "paths": {
         "/personagens": {
