@@ -80,7 +80,11 @@
                         "name": "id",
                         "in": "path",
                         "description": "id do personagem",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
                     }
                 ],
                 "responses": {
@@ -112,7 +116,11 @@
                         "name": "id",
                         "in": "path",
                         "description": "id do personagem",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -165,7 +173,11 @@
                         "name": "id",
                         "in": "path",
                         "description": "id do personagem",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
                     }
                 ],
                 "responses": {
@@ -188,13 +200,15 @@
                 "type": "object",
                 "properties": {
                     "_id": {
-                        "type": "string"
+                        "type": "string",
+                        "format": "uuid"
                     },
                     "nome": {
                         "type": "string"
                     },
                     "imagemUrl": {
-                        "type": "string"
+                        "type": "string",
+                        "format": "uri"
                     }
                 }
             },
@@ -205,7 +219,8 @@
                         "type": "string"
                     },
                     "imagemUrl": {
-                        "type": "string"
+                        "type": "string",
+                        "format": "uri"
                     }
                 }
             }
