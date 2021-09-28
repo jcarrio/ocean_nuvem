@@ -83,7 +83,8 @@
                         "required": true,
                         "schema": {
                           "type": "string",
-                          "format": "ObjectId"
+                          "format": "ObjectId",
+                          "pattern": "/^[a-f\d]{24}$/i"
                         }
                     }
                 ],
