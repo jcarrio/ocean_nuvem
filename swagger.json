@@ -1,5 +1,5 @@
 {
-    "openapi": "3.0.1",
+    "openapi": "3.4.3",
     "info": {
         "title": "Rick and Morty",
         "description": "Documentação da API Rick and Morty.\n\nDesenvolvido com Node.js Express e MongoDB",
@@ -84,7 +84,7 @@
                         "schema": {
                           "type": "string",
                           "format": "ObjectId",
-                          "pattern": "/^[a-f\d]{24}$/i"
+                          "pattern": "^[a-fA-F\\d]{24}$"
                         }
                     }
                 ],
