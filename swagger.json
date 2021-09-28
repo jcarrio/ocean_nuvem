@@ -120,7 +120,8 @@
                         "required": true,
                         "schema": {
                           "type": "string",
-                          "format": "ObjectId"
+                          "format": "ObjectId",
+                          "pattern": "^[a-fA-F\\d]{24}$"
                         }
                     }
                 ],
@@ -177,7 +178,8 @@
                         "required": true,
                         "schema": {
                           "type": "string",
-                          "format": "ObjectId"
+                          "format": "ObjectId",
+                          "pattern": "^[a-fA-F\\d]{24}$"
                         }
                     }
                 ],

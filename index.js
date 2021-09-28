@@ -6,6 +6,11 @@ const app = express();
 
 const swaggerUI = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const swaggerOptions = {
+    swaggerOptions: {
+      validatorUrl: "https://validator.swagger.io/validator"
+    }
+  };
 
 const dbUser = process.env.DB_USER;
 const dbPass = process.env.DB_PASS;
@@ -25,7 +30,7 @@ const dbHost = process.env.DB_HOST;
     // Sinalizamos para o Express que todo body da requisição
     // estará estruturado em JSON
     app.use(express.json());
-    app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+    app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument, swaggerOptions));
 
     app.get("/", function (req, res) {
         //res.send("Hello World");
