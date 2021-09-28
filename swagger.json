@@ -1,5 +1,5 @@
 {
-    "openapi": "3.4.3",
+    "openapi": "3.0.1",
     "info": {
         "title": "Rick and Morty",
         "description": "Documentação da API Rick and Morty.\n\nDesenvolvido com Node.js Express e MongoDB",
