@@ -7,10 +7,10 @@ const app = express();
 const swaggerUI = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const swaggerOptions = {
-    swaggerOptions: {
-      validatorUrl: "https://validator.swagger.io/validator"
-    }
-  };
+        swaggerOptions: {
+            validatorUrl: "https://validator.swagger.io/validator"
+        }
+    };
 
 const dbUser = process.env.DB_USER;
 const dbPass = process.env.DB_PASS;
