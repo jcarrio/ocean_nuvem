@@ -227,7 +227,7 @@
                     },
                     "imagemUrl": {
                         "type": "string",
-                        "format": "email"
+                        "format": "url"
                     }
                 }
             }
