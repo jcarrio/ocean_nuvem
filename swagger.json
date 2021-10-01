@@ -36,6 +36,8 @@
                 "description": "Cria personagem",
                 "tags": ["Personagens"],
                 "requestBody": {
+                    "description": "Informações do personagem",
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -126,6 +128,8 @@
                     }
                 ],
                 "requestBody": {
+                    "description": "Informações do personagem",
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -223,7 +227,7 @@
                     },
                     "imagemUrl": {
                         "type": "string",
-                        "format": "url"
+                        "format": "email"
                     }
                 }
             }
